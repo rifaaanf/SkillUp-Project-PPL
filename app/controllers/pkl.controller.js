@@ -216,3 +216,13 @@ exports.downloadPKL = (req, res) => {
         }
     );
 };
+
+exports.deleteAllPKL = (req, res) => {
+    PKL.deleteMany({}, (err, data) => {
+        if (err) {
+            res.status(500).send({ message: err });
+            return;
+        }
+        res.status(200).send(data);
+    });
+}

@@ -21,29 +21,21 @@ module.exports = function (app) {
         controller.getIRS
     );
 
-  app.get(
-    "/all-irs",
-    [authJwt.verifyToken, authJwt.isDepartemen],
-    controller.getAllIRS
-  );
+    app.get(
+        "/all-irs",
+        [authJwt.verifyToken, authJwt.isDepartemen],
+        controller.getAllIRS
+    );
 
-  //get /irs/:nim/:semester but only mahasiswa and dosen can access
+    //get /irs/:nim/:semester but only mahasiswa and dosen can access
 
-  app.get(
-    "/irs/:nim/:semester_aktif",
-    [authJwt.verifyToken, authJwt.getMahasiswaIdFromNim, authJwt.isKodeWali],
-    controller.downloadIRS
-  );
-
-  app.get(
-    "/verifikasi/irs",
-    [authJwt.verifyToken, authJwt.isDosen],
-    controller.waliIRS
-  );
-
-  app.put(
-    "/verifikasi/irs/:nim/:semester_aktif",
-    [authJwt.verifyToken, authJwt.isDosen],
-    controller.verifikasiIRS
-  );
+    app.get(
+        "/irs/:nim/:semester",
+        [
+            authJwt.verifyToken,
+            authJwt.getMahasiswaIdFromNim,
+            authJwt.isKodeWali,
+        ],
+        controller.downloadIRS
+    );
 };
